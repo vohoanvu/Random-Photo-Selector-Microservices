@@ -20,6 +20,7 @@ namespace AssigmentOneUI
                         @"D:\vu-repos\LocalPersonalDocs\Computer-Science-degree-competion\OSU\CS361\AssigmentOneUI\Image-Service\image-service.txt";
 
                     File.WriteAllText(prngFilePath, "run");
+                    Thread.Sleep(3000);
                     Console.WriteLine("Waiting for PRNG service...");
 
                     string randomNumber = WaitForPRNGFileUpdate(prngFilePath);
@@ -65,7 +66,7 @@ namespace AssigmentOneUI
                     return content;
                 }
                 lastContent = content;
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
             }
         }
 
@@ -84,7 +85,7 @@ namespace AssigmentOneUI
                     return content;
                 }
                 lastContent = content;
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
             }
         }
     }

@@ -25,6 +25,7 @@
 
                 if (content.Contains("run"))
                 {
+                    Thread.Sleep(2000);
                     Console.WriteLine("RUN request is found! Writing pseudo-random number to it...");
                     using var writer = new StreamWriter(filePath, false);
                     Random random = new();
@@ -32,7 +33,7 @@
                     writer.Write(randomNumber.ToString());
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
             }
         }
     }

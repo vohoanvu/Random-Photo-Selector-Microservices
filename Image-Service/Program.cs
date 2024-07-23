@@ -26,7 +26,7 @@
                 if (int.TryParse(content, out int i))
                 {
                     File.WriteAllText(textFilePath, string.Empty);
-
+                    Thread.Sleep(2000);
                     string[] imageFiles = Directory.GetFiles(imageFolderPath, "*.jpg");
 
                     if (imageFiles.Length > 0)
@@ -42,7 +42,7 @@
                     }
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
             }
         }
     }
