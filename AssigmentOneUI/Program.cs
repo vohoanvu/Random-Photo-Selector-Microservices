@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using NetMQ.Sockets;
+using NetMQ;
 
 namespace AssigmentOneUI
 {
@@ -7,7 +7,21 @@ namespace AssigmentOneUI
     {
         public static void Main(string[] args)
         {
-            while (true)
+            using (var requestSocket = new RequestSocket(">tcp://localhost:5555"))
+            {
+                Console.WriteLine("Client node connecting to port 5555...");
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine("{0}. Client is sending: This is a message from CS361", i+1);
+                    requestSocket.SendFrame("This is a message from CS361");
+
+                    var messageResponse = requestSocket.ReceiveFrameString();
+                    Console.WriteLine("=> Received from PRNG server: " + messageResponse);
+                }
+            }
+
+            /*while (true)
             {
                 Console.Write("Please enter the command 'start': ");
                 string command = Console.ReadLine();
@@ -51,7 +65,7 @@ namespace AssigmentOneUI
                 {
                     break;
                 }
-            }
+            }*/
         }
 
         private static string WaitForPRNGFileUpdate(string filePath)

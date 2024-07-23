@@ -1,14 +1,34 @@
-﻿namespace PRNG_Service
+﻿using NetMQ.Sockets;
+using NetMQ;
+
+namespace PRNG_Service
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Starting PRNG service in a separate process...");
+            /*Console.WriteLine("Starting PRNG service in a separate process...");
             PRNGService prngService = new();
             
             Console.WriteLine("PRNG Service is now checking the prng-service.text file for 'run' command...");
-            prngService.ProcessPrngRequest();
+            prngService.ProcessPrngRequest();*/
+
+            using (var responseSocket = new ResponseSocket("@tcp://*:5555"))
+            {
+                Console.WriteLine("PRNG Server listening on port 5555...");
+
+                while (true)
+                {
+                    var messageRequest = responseSocket.ReceiveFrameString();
+                    Console.WriteLine("Server received: " + messageRequest);
+
+                    if (messageRequest.Contains("This is a message from CS361"))
+                    {
+                        responseSocket.SendFrame("This is a message from CS361");
+                        Console.WriteLine("Sent back from server: This is a message from CS361");
+                    }
+                }
+            }
         }
     }
 
